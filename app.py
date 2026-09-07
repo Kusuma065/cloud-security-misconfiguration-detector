@@ -1,5 +1,6 @@
 from flask import Flask, render_template, send_file
 import json
+import os
 from datetime import datetime
 
 from scanner.scanner import scan_configuration, calculate_risk
@@ -60,4 +61,8 @@ def report():
         download_name="cloud_security_report.json"
     )
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+        debug=False
+    )
