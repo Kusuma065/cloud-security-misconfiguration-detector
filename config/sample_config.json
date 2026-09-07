@@ -1,0 +1,6 @@
+{
+    "storage_public": true,
+    "admin_access": true,
+    "ssh_open_to_world": true,
+    "encryption_enabled": false
+}

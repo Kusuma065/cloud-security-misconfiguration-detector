@@ -1,0 +1,32 @@
+{
+    "scan_time": "2026-09-02 22:18:39",
+    "risk_score": 28,
+    "risk_level": "HIGH",
+    "total_issues": 4,
+    "findings": [
+        {
+            "issue": "Public Storage Access",
+            "severity": "HIGH",
+            "description": "Storage is publicly accessible.",
+            "recommendation": "Disable public access and allow only authorized users."
+        },
+        {
+            "issue": "Excessive Admin Access",
+            "severity": "HIGH",
+            "description": "Administrative access is enabled.",
+            "recommendation": "Follow the principle of least privilege."
+        },
+        {
+            "issue": "SSH Open to Internet",
+            "severity": "CRITICAL",
+            "description": "SSH access is exposed to the public internet.",
+            "recommendation": "Restrict SSH access to trusted sources."
+        },
+        {
+            "issue": "Encryption Disabled",
+            "severity": "MEDIUM",
+            "description": "Data encryption is not enabled.",
+            "recommendation": "Enable encryption for stored data."
+        }
+    ]
+}

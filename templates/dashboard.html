@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cloud Security Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            background: #f4f6f8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .issue {
+            padding: 15px;
+            margin: 15px 0;
+            background: #fafafa;
+            border-left: 5px solid #d9534f;
+        }
+
+        .severity {
+            font-weight: bold;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .critical {
+    border-left: 6px solid red;
+}
+
+.high {
+    border-left: 6px solid orange;
+}
+
+.medium {
+    border-left: 6px solid gold;
+}
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="summary">
+
+    <div class="summary-card">
+        <div class="number">{{ findings|length }}</div>
+        <p>Total Issues</p>
+    </div>
+
+    <div class="summary-card">
+        <div class="number">{{ score }}</div>
+        <p>Risk Score</p>
+    </div>
+
+    <div class="summary-card">
+        <div class="number">{{ risk_level }}</div>
+        <p>Risk Level</p>
+    </div>
+
+</div>
+    <h1>🔐 Cloud Security Dashboard</h1>
+
+    <form action="/scan" method="POST" style="text-align: center; margin: 20px;">
+        <button type="submit">🔍 Scan Configuration</button>
+    <a href="/report">
+    <button type="button">📄 Download Security Report</button>
+</a>
+    </form>
+
+    <div class="card">
+        <h2>Security Assessment</h2>
+
+        <p>
+            Risk Level:
+            <strong>{{ risk_level }}</strong>
+        </p>
+
+        <p>
+            Risk Score:
+            <strong>{{ score }}</strong>
+        </p>
+        <div style="background: #e5e7eb; border-radius: 10px; height: 20px; margin-top: 10px;">
+    <div style="
+        background: orange;
+        width: {{ (score / 40 * 100) if score < 40 else 100 }}%;
+        height: 20px;
+        border-radius: 10px;
+    "></div>
+</div>
+
+<p>
+    Maximum Risk Score: 40
+</p>
+    </div>
+
+    <div class="card">
+        <h2>Detected Security Issues</h2>
+
+        {% for finding in findings %}
+            <div class="issue {{ finding.severity|lower }}">
+
+                <h3>{{ finding["issue"] }}</h3>
+
+                <p class="severity">
+                    Severity: {{ finding["severity"] }}
+                </p>
+
+                <p>
+                    Description: {{ finding["description"] }}
+                </p>
+
+                <p>
+                    <strong>Recommendation:</strong>
+                    {{ finding["recommendation"] }}
+                </p>
+
+            </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
